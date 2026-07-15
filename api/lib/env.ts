@@ -14,5 +14,5 @@ export const env = {
   isProduction: process.env.NODE_ENV === "production",
   databaseUrl: required("DATABASE_URL"),
   yandexApiKey: required("YANDEX_API_KEY"),
-  yandexFolderId: required("YANDEX_FOLDER_ID"),
+  yandexFolderId: process.env.YANDEX_FOLDER_ID ?? "",
 };

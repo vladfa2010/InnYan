@@ -20,6 +20,10 @@ export const genSearchRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
+      if (!env.yandexFolderId) {
+        throw new Error("YANDEX_FOLDER_ID not configured. Generative Search requires a Folder ID with billing account.");
+      }
+
       const body: Record<string, any> = {
         messages: [
           {
