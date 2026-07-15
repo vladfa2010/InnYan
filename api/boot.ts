@@ -9,6 +9,15 @@ import { env } from "./lib/env";
 const app = new Hono<{ Bindings: HttpBindings }>();
 
 app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
+
+app.get("/api/health", (c) =>
+  c.json({
+    status: "ok",
+    apiKeyConfigured: !!env.yandexApiKey,
+    folderIdConfigured: !!env.yandexFolderId,
+  })
+);
+
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
     endpoint: "/api/trpc",
